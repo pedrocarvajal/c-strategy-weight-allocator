@@ -1,7 +1,5 @@
-#include <iostream>
-#include "helpers/headers/prepare.hpp"
+#include "services/logger/headers/logger.hpp"
 
 int main() {
-    std::cout << "Hola\n";
-    prepare("storage/XAUUSD_TickData.csv");
+    services::Logger logger("index");
 }

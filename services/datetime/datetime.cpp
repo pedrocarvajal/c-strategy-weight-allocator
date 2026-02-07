@@ -1,5 +1,3 @@
-#pragma once
-
 #include <string>
 #include <ctime>
 #include <iomanip>
@@ -10,12 +8,16 @@ class DateTime {
 public:
     std::tm datetime;
 
-public:
-    DateTime(const std::string& seed) {
-        std::tm tm = {};
-        std::istringstream stream(seed);
-        stream >> std::get_time(&tm, "%Y-%m-%d %H:%M:%S");
-        datetime = tm;
+    DateTime(const std::string& seed = "") {
+        if (!seed.empty()) {
+            std::tm tm = {};
+            std::istringstream stream(seed);
+            stream >> std::get_time(&tm, "%Y-%m-%d %H:%M:%S");
+            datetime = tm;
+        }
+
+        std::time_t now = std::time(nullptr);
+        datetime = *std::localtime(&now);
     }
 
     void addDays(int days) {
@@ -24,17 +26,23 @@ public:
     }
 
     void addMinutes(int minutes) {
-      datetime.tm_min += minutes;
-      refresh();
+        datetime.tm_min += minutes;
+        refresh();
     }
 
     void addSeconds(int seconds) {
-      datetime.tm_sec += seconds;
-      refresh();
-    } 
+        datetime.tm_sec += seconds;
+        refresh();
+    }
 
     float getTimestamp() {
         return std::mktime(&datetime);
+    }
+
+    std::string getFormatted(const std::string format = "%Y-%m-%d %H:%M:%S") {
+        std::ostringstream stream;
+        stream << std::put_time(&datetime, format.c_str());
+        return stream.str();
     }
 
     int getDay() {
@@ -53,9 +61,9 @@ public:
         return datetime.tm_sec;
     }
 
-  private:
+private:
     void refresh() {
-      std::mktime(&datetime);
+        std::mktime(&datetime);
     }
 };
 }
