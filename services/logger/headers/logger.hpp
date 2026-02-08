@@ -4,17 +4,22 @@
 #include "services/logger/enums/level.hpp"
 
 namespace services {
-class Logger {
-public:
-    Logger(const std::string prefix = "");
-    void info(const std::string message);
+    class Logger {
+    public:
+        Logger(const std::string prefix = "");
+        void info(const std::string message);
+        void error(const std::string message);
+        void success(const std::string message);
+        void warning(const std::string message);
 
-private:
-    std::string prefix;
-    std::string getFormattedMessage(enums::Level severity,
-                                    const std::string message);
-    std::string getTime();
-    std::string getLevel(enums::Level severity);
-    std::string getPrefix();
-};
+    private:
+        std::string prefix;
+        std::string getFormattedMessage(
+            enums::Level severity,
+            const std::string message
+        );
+        std::string getTime();
+        std::string getLevel(enums::Level severity);
+        std::string getPrefix();
+    };
 }
