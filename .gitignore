@@ -46,5 +46,8 @@ Makefile
 .DS_Store
 Thumbs.db
 
+# Claude
+.mcp.json
+.claude/
 
 remind.md

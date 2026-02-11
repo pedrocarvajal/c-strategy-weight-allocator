@@ -1,6 +1,3 @@
-[submodule "services/datetime"]
-	path = services/datetime
-	url = git@github.com:pedrocarvajal/c-service-datetime.git
 [submodule "services/logger"]
 	path = services/logger
 	url = git@github.com:pedrocarvajal/c-service-logger.git

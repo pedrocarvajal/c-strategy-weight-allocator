@@ -12,7 +12,7 @@
       "-o",
       "dist/index"
     ],
-    "directory": "/Users/memeonlymellc/learn-c/source-codes/learning-c-loop-on-big-data",
+    "directory": "/Users/memeonlymellc/learn-c/source-codes/c-strategy-weight-allocator",
     "output": "dist/index"
   },
   {
@@ -28,7 +28,7 @@
       "-o",
       "dist/index"
     ],
-    "directory": "/Users/memeonlymellc/learn-c/source-codes/learning-c-loop-on-big-data",
+    "directory": "/Users/memeonlymellc/learn-c/source-codes/c-strategy-weight-allocator",
     "output": "dist/index"
   },
   {
@@ -44,7 +44,7 @@
       "-o",
       "dist/index"
     ],
-    "directory": "/Users/memeonlymellc/learn-c/source-codes/learning-c-loop-on-big-data",
+    "directory": "/Users/memeonlymellc/learn-c/source-codes/c-strategy-weight-allocator",
     "output": "dist/index"
   },
   {
@@ -60,7 +60,7 @@
       "-o",
       "dist/index"
     ],
-    "directory": "/Users/memeonlymellc/learn-c/source-codes/learning-c-loop-on-big-data",
+    "directory": "/Users/memeonlymellc/learn-c/source-codes/c-strategy-weight-allocator",
     "output": "dist/index"
   },
   {
@@ -76,7 +76,7 @@
       "-o",
       "dist/index"
     ],
-    "directory": "/Users/memeonlymellc/learn-c/source-codes/learning-c-loop-on-big-data",
+    "directory": "/Users/memeonlymellc/learn-c/source-codes/c-strategy-weight-allocator",
     "output": "dist/index"
   }
 ]
