@@ -21,7 +21,6 @@ namespace helpers {
             snap.bid = snapshot.value("bid", 0.0);
             snap.ask = snapshot.value("ask", 0.0);
             snap.performance = snapshot.value("performance", 0.0);
-            snap.momentum = snapshot.value("momentum", 0.0);
             snap.drawdown = snapshot.value("drawdown", 0.0);
             snap.volatility = snapshot.value("volatility", 0.0);
             snap.daily_performance = snapshot.value("daily_performance", 0.0);

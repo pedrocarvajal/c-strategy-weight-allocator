@@ -10,7 +10,6 @@ namespace structs {
         double bid;
         double ask;
         double performance; // rolling performance
-        double momentum; // rolling momentum
         double drawdown; // rolling drawdown
         double volatility; // rolling volatility
         double daily_performance;

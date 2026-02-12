@@ -1,6 +1,6 @@
 [
   {
-    "file": "./structs/datetime.cpp",
+    "file": "./helpers/get_market_snapshots.cpp",
     "arguments": [
       "g++",
       "-std=c++17",
@@ -8,7 +8,7 @@
       "-Wextra",
       "-I.",
       "-O2",
-      "./structs/datetime.cpp",
+      "./helpers/get_market_snapshots.cpp",
       "-o",
       "dist/index"
     ],
@@ -16,7 +16,7 @@
     "output": "dist/index"
   },
   {
-    "file": "./helpers/prepare.cpp",
+    "file": "./helpers/get_strategy_snapshots.cpp",
     "arguments": [
       "g++",
       "-std=c++17",
@@ -24,7 +24,7 @@
       "-Wextra",
       "-I.",
       "-O2",
-      "./helpers/prepare.cpp",
+      "./helpers/get_strategy_snapshots.cpp",
       "-o",
       "dist/index"
     ],
@@ -32,7 +32,7 @@
     "output": "dist/index"
   },
   {
-    "file": "./helpers/toTimestamp.cpp",
+    "file": "./services/logger/logger.cpp",
     "arguments": [
       "g++",
       "-std=c++17",
@@ -40,23 +40,7 @@
       "-Wextra",
       "-I.",
       "-O2",
-      "./helpers/toTimestamp.cpp",
-      "-o",
-      "dist/index"
-    ],
-    "directory": "/Users/memeonlymellc/learn-c/source-codes/c-strategy-weight-allocator",
-    "output": "dist/index"
-  },
-  {
-    "file": "./services/datetime/datetime.cpp",
-    "arguments": [
-      "g++",
-      "-std=c++17",
-      "-Wall",
-      "-Wextra",
-      "-I.",
-      "-O2",
-      "./services/datetime/datetime.cpp",
+      "./services/logger/logger.cpp",
       "-o",
       "dist/index"
     ],
