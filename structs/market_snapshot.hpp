@@ -9,6 +9,10 @@ namespace structs {
         std::string symbol;
         double bid;
         double ask;
+        double performance;
+        double momentum;
+        double drawdown;
+        double volatility;
         double daily_performance;
     };
 }

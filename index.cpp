@@ -17,6 +17,7 @@
 #include "libraries/json.hpp"
 
 int main() {
+    // Data preparation
     namespace fs = std::filesystem;
     services::Logger logger("index");
 
@@ -45,23 +46,38 @@ int main() {
                 );
             } else {
                 throw std::runtime_error(
-                    "Unrecognized snapshot level '" + level
-                    + "' in file: " + filename
-                    + ". Expected 'market' or 'strategy'."
+                          "Unrecognized snapshot level '" + level
+                          + "' in file: " + filename
+                          + ". Expected 'market' or 'strategy'."
                 );
             }
         }
     }
 
-    if (market_snapshots.empty())
+    if (market_snapshots.empty()) {
         throw std::runtime_error(
-            "No market snapshots loaded."
-            " Verify that 'storage/' contains '*_Snapshots.json' files with level 'market'."
+                  "No market snapshots loaded."
+                  " Verify that 'storage/' contains '*_Snapshots.json' files with level 'market'."
         );
+    }
 
-    if (strategy_snapshots.empty())
+    if (strategy_snapshots.empty()) {
         throw std::runtime_error(
-            "No strategy snapshots loaded."
-            " Verify that 'storage/' contains '*_Snapshots.json' files with level 'strategy'."
+                  "No strategy snapshots loaded."
+                  " Verify that 'storage/' contains '*_Snapshots.json' files with level 'strategy'."
         );
+    }
+
+    // Calculation
+    const int IN_SAMPLE_DAYS = 300;
+
+    int counter = 0;
+
+    for (auto& [timestamp, msnapshots]: market_snapshots) {
+        counter++;
+
+        if (counter <= IN_SAMPLE_DAYS) {
+            //
+        }
+    }
 }
