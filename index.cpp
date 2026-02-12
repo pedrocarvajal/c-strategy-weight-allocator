@@ -67,17 +67,4 @@ int main() {
                   " Verify that 'storage/' contains '*_Snapshots.json' files with level 'strategy'."
         );
     }
-
-    // Calculation
-    const int IN_SAMPLE_DAYS = 300;
-
-    int counter = 0;
-
-    for (auto& [timestamp, msnapshots]: market_snapshots) {
-        counter++;
-
-        if (counter <= IN_SAMPLE_DAYS) {
-            //
-        }
-    }
 }
