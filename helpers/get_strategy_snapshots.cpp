@@ -5,9 +5,9 @@
 #include "libraries/json.hpp"
 
 namespace helpers {
-    std::map<int, std::vector<structs::StrategySnapshot> > get_strategy_snapshots(
-        const nlohmann::json data,
-        std::map<int, std::vector<structs::StrategySnapshot> > &snapshots
+    void get_strategy_snapshots(
+        const nlohmann::json &data,
+        std::vector<structs::StrategySnapshot> &snapshots
     ) {
         for (auto& snapshot: data) {
             long timestamp = snapshot["timestamp"];
@@ -23,9 +23,7 @@ namespace helpers {
             snap.performance = snapshot.value("performance", 0.0);
             snap.daily_performance = snapshot.value("daily_performance", 0.0);
 
-            snapshots[timestamp].push_back(snap);
+            snapshots.push_back(snap);
         }
-
-        return snapshots;
     }
 }

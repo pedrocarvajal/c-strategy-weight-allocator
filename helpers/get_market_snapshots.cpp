@@ -5,9 +5,10 @@
 #include "libraries/json.hpp"
 
 namespace helpers {
-    std::map<int, std::vector<structs::MarketSnapshot> > get_market_snapshots(
-        const nlohmann::json data,
-        std::map<int, std::vector<structs::MarketSnapshot> > &snapshots
+    void get_market_snapshots(
+        const nlohmann::json &data,
+        std::vector<structs::MarketSnapshot> &snapshots,
+        std::vector<int> &timestamps
     ) {
         for (auto& snapshot: data) {
             long timestamp = snapshot["timestamp"];
@@ -25,9 +26,8 @@ namespace helpers {
             snap.volatility = snapshot.value("volatility", 0.0);
             snap.daily_performance = snapshot.value("daily_performance", 0.0);
 
-            snapshots[timestamp].push_back(snap);
+            timestamps.push_back(timestamp);
+            snapshots.push_back(snap);
         }
-
-        return snapshots;
     }
 }

@@ -15,6 +15,7 @@
 #include "helpers/headers/get_strategy_snapshots.hpp"
 
 #include "libraries/json.hpp"
+#include "libraries/Eigen/Dense"
 
 int main() {
     // Data preparation
@@ -22,9 +23,9 @@ int main() {
     services::Logger logger("index");
 
     std::regex pattern(".*_Snapshots\\.json$");
-    std::vector<nlohmann::json> files;
-    std::map<int, std::vector<structs::StrategySnapshot> > strategy_snapshots;
-    std::map<int, std::vector<structs::MarketSnapshot> > market_snapshots;
+    std::vector<structs::MarketSnapshot> market_snapshots;
+    std::vector<structs::StrategySnapshot> strategy_snapshots;
+    std::vector<int> timestamps;
 
     for (auto& entry : fs::directory_iterator("storage/")) {
         std::string filename = entry.path().filename().string();
@@ -35,12 +36,13 @@ int main() {
             std::string level = data[0].value("level", "");
 
             if (level == "market") {
-                market_snapshots = helpers::get_market_snapshots(
+                helpers::get_market_snapshots(
                     data,
-                    market_snapshots
+                    market_snapshots,
+                    timestamps
                 );
             } else if (level == "strategy") {
-                strategy_snapshots = helpers::get_strategy_snapshots(
+                helpers::get_strategy_snapshots(
                     data,
                     strategy_snapshots
                 );
@@ -66,5 +68,38 @@ int main() {
                   "No strategy snapshots loaded."
                   " Verify that 'storage/' contains '*_Snapshots.json' files with level 'strategy'."
         );
+    }
+
+    // ---
+    // Configs
+    const int IN_SAMPLE_ROLLING_WINDOWS = 365;
+
+    // Variables
+    std::vector<std::vector<double> > features;
+    std::vector<std::vector<double> > features_normalized;
+
+    // Step 01
+    for (size_t i = 0; i < timestamps.size(); ++i) {
+        const auto& snap = market_snapshots[i];
+
+        features.push_back({
+            snap.performance,
+            snap.momentum,
+            snap.drawdown,
+            snap.volatility
+        });
+    }
+
+    std::vecto
+    for (size_t i = 0; i < features.size(); ++i) {
+
+    }
+
+    // Step 02
+    for (size_t i = 0; i < market_snapshots.size(); ++i) {
+        if (i < IN_SAMPLE_ROLLING_WINDOWS)
+            continue;
+
+        //
     }
 }

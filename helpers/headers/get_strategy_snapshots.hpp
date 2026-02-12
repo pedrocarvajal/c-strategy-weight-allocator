@@ -5,8 +5,8 @@
 #include "libraries/json.hpp"
 
 namespace helpers {
-    std::map<int, std::vector<structs::StrategySnapshot> > get_strategy_snapshots(
-        const nlohmann::json data,
-        std::map<int, std::vector<structs::StrategySnapshot> > &snapshots
+    void get_strategy_snapshots(
+        const nlohmann::json &data,
+        std::vector<structs::StrategySnapshot> &snapshots
     );
 }
