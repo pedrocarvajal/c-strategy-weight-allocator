@@ -56,9 +56,9 @@ int main() {
                 helpers::get_strategy_snapshots(data, strategy_snapshots);
             } else {
                 throw std::runtime_error(
-                    "Unrecognized snapshot level '" + level
-                    + "' in file: " + filename
-                    + ". Expected 'market' or 'strategy'."
+                          "Unrecognized snapshot level '" + level
+                          + "' in file: " + filename
+                          + ". Expected 'market' or 'strategy'."
                 );
             }
         }
@@ -66,23 +66,23 @@ int main() {
 
     if (market_snapshots.empty()) {
         throw std::runtime_error(
-            "No market snapshots loaded."
-            " Verify that 'storage/' contains '*_Snapshots.json' files with level 'market'."
+                  "No market snapshots loaded."
+                  " Verify that 'storage/' contains '*_Snapshots.json' files with level 'market'."
         );
     }
 
     if (strategy_snapshots.empty()) {
         throw std::runtime_error(
-            "No strategy snapshots loaded."
-            " Verify that 'storage/' contains '*_Snapshots.json' files with level 'strategy'."
+                  "No strategy snapshots loaded."
+                  " Verify that 'storage/' contains '*_Snapshots.json' files with level 'strategy'."
         );
     }
 
     // ---------------------------------------------------------------
     // 2. Build feature vectors and normalize (rolling z-score)
     // ---------------------------------------------------------------
-    std::vector<std::vector<double>> features;
-    std::vector<std::vector<double>> features_normalized;
+    std::vector<std::vector<double> > features;
+    std::vector<std::vector<double> > features_normalized;
 
     helpers::normalize_features(
         market_snapshots, timestamps, NORMALIZATION_WINDOW,
@@ -92,14 +92,14 @@ int main() {
     // ---------------------------------------------------------------
     // 3. Build strategy lookup (date -> strategy -> daily_performance)
     // ---------------------------------------------------------------
-    std::map<int, std::map<std::string, double>> strategy_by_date;
+    std::map<int, std::map<std::string, double> > strategy_by_date;
     std::set<std::string> strategy_names;
 
     helpers::build_strategy_lookup(strategy_snapshots, strategy_by_date, strategy_names);
 
     logger.info("market days: " + std::to_string(market_snapshots.size())
-        + " | normalized days: " + std::to_string(features_normalized.size())
-        + " | strategies: " + std::to_string(strategy_names.size()));
+                + " | normalized days: " + std::to_string(features_normalized.size())
+                + " | strategies: " + std::to_string(strategy_names.size()));
 
     // ---------------------------------------------------------------
     // 4. KNN semaphore: for each day, find similar past conditions
@@ -119,7 +119,7 @@ int main() {
         const auto& today = features_normalized[today_index];
 
         // 4a. Euclidean distance to all past normalized days
-        std::vector<std::pair<double, size_t>> distances;
+        std::vector<std::pair<double, size_t> > distances;
         for (size_t j = 0; j < today_index; ++j) {
             double sum_squared = 0.0;
             for (size_t f = 0; f < today.size(); ++f) {
@@ -132,16 +132,15 @@ int main() {
         // 4b. Select K nearest neighbors
         int k = std::min(K_NEIGHBORS, static_cast<int>(distances.size()));
         std::sort(distances.begin(), distances.end());
-        std::vector<std::pair<double, size_t>> nearest_neighbors(
+        std::vector<std::pair<double, size_t> > nearest_neighbors(
             distances.begin(),
             distances.begin() + k
         );
 
         // 4c. Score each strategy (inverse-distance weighted average)
         double weight_sum = 0.0;
-        for (const auto& [dist, norm_index] : nearest_neighbors) {
+        for (const auto& [dist, norm_index] : nearest_neighbors)
             weight_sum += 1.0 / (dist + EPSILON);
-        }
 
         std::map<std::string, double> strategy_scores;
         for (const auto& name : strategy_names) {
@@ -156,9 +155,8 @@ int main() {
                 auto date_it = strategy_by_date.find(date_key);
                 if (date_it != strategy_by_date.end()) {
                     auto strat_it = date_it->second.find(name);
-                    if (strat_it != date_it->second.end()) {
+                    if (strat_it != date_it->second.end())
                         weighted_sum += weight * strat_it->second;
-                    }
                 }
             }
 
@@ -166,16 +164,15 @@ int main() {
         }
 
         // 4d. Activate top strategies with positive score
-        std::vector<std::pair<double, std::string>> sorted_scores;
-        for (const auto& [name, score] : strategy_scores) {
+        std::vector<std::pair<double, std::string> > sorted_scores;
+        for (const auto& [name, score] : strategy_scores)
             if (score > 0.0)
                 sorted_scores.push_back({ score, name });
-        }
 
         std::sort(sorted_scores.rbegin(), sorted_scores.rend());
 
         int active_count = std::min(MAX_ACTIVE_STRATEGIES, static_cast<int>(sorted_scores.size()));
-        std::vector<std::pair<double, std::string>> active_strategies(
+        std::vector<std::pair<double, std::string> > active_strategies(
             sorted_scores.begin(),
             sorted_scores.begin() + active_count
         );
@@ -191,9 +188,8 @@ int main() {
 
         double raw_return = 0.0;
         if (next_it != strategy_by_date.end()) {
-            for (const auto& [name, perf] : next_it->second) {
+            for (const auto& [name, perf] : next_it->second)
                 raw_return += perf;
-            }
             raw_return /= static_cast<double>(next_it->second.size());
         }
         nav_raw *= (1.0 + raw_return);
@@ -202,9 +198,8 @@ int main() {
         if (active_count > 0 && next_it != strategy_by_date.end()) {
             for (const auto& [score, name] : active_strategies) {
                 auto strat_it = next_it->second.find(name);
-                if (strat_it != next_it->second.end()) {
+                if (strat_it != next_it->second.end())
                     knn_return += strat_it->second;
-                }
             }
             knn_return /= static_cast<double>(active_count);
         }
@@ -229,8 +224,8 @@ int main() {
 
         char nav_buffer[128];
         std::snprintf(nav_buffer, sizeof(nav_buffer),
-            "raw: %.4f (dd: %.2f%%) | knn: %.4f (dd: %.2f%%) | active: %d",
-            nav_raw, max_dd_raw * 100, nav_knn, max_dd_knn * 100, active_count);
+                      "raw: %.4f (dd: %.2f%%) | knn: %.4f (dd: %.2f%%) | active: %d",
+                      nav_raw, max_dd_raw * 100, nav_knn, max_dd_knn * 100, active_count);
         logger.info(std::string(date_buffer) + " | " + nav_buffer);
     }
 
@@ -239,15 +234,15 @@ int main() {
     // ---------------------------------------------------------------
     logger.info("=== SUMMARY ===");
     logger.info("total days: " + std::to_string(total_days)
-        + " | days inactive: " + std::to_string(days_active_zero));
+                + " | days inactive: " + std::to_string(days_active_zero));
 
     char summary[256];
     std::snprintf(summary, sizeof(summary),
-        "RAW  -> nav: %.4f | max_dd: %.2f%%", nav_raw, max_dd_raw * 100);
+                  "RAW  -> nav: %.4f | max_dd: %.2f%%", nav_raw, max_dd_raw * 100);
     logger.info(summary);
 
     std::snprintf(summary, sizeof(summary),
-        "KNN  -> nav: %.4f | max_dd: %.2f%% | ratio: %.2fx",
-        nav_knn, max_dd_knn * 100, nav_knn / nav_raw);
+                  "KNN  -> nav: %.4f | max_dd: %.2f%% | ratio: %.2fx",
+                  nav_knn, max_dd_knn * 100, nav_knn / nav_raw);
     logger.info(summary);
 }

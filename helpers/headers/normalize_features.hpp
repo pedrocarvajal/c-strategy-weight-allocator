@@ -9,7 +9,7 @@ namespace helpers {
         const std::vector<structs::MarketSnapshot> &market_snapshots,
         const std::vector<int> &timestamps,
         int normalization_window,
-        std::vector<std::vector<double>> &features,
-        std::vector<std::vector<double>> &features_normalized
+        std::vector<std::vector<double> > &features,
+        std::vector<std::vector<double> > &features_normalized
     );
 }

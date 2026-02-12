@@ -11,15 +11,9 @@
 #define EIGEN_TERNARY_FUNCTORS_H
 
 namespace Eigen {
-
-namespace internal {
-
+    namespace internal {
 //---------- associative ternary functors ----------
-
-
-
-} // end namespace internal
-
+    } // end namespace internal
 } // end namespace Eigen
 
 #endif // EIGEN_TERNARY_FUNCTORS_H
