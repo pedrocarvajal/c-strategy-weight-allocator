@@ -78,9 +78,9 @@ namespace Eigen {
                 }
             }
             /* Compute etree by Liu's algorithm for symmetric matrices,
-             *      except use (firstRowElt[r],c) in place of an edge (r,c) of A.
-             * Thus each row clique in A'*A is replaced by a star
-             * centered at its first vertex, which has the same fill. */
+            *      except use (firstRowElt[r],c) in place of an edge (r,c) of A.
+            * Thus each row clique in A'*A is replaced by a star
+            * centered at its first vertex, which has the same fill. */
             StorageIndex rset, cset, rroot;
             for (StorageIndex col = 0; col < nc; col++) {
                 found_diag = col >= m;

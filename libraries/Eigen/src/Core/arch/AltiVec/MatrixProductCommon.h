@@ -154,17 +154,17 @@ namespace Eigen {
                                                              4,  5,  6,  7,
                                                              20, 21, 22, 23 };
 
-        const static Packet16uc p16uc_SETCOMPLEX32_SECOND = { 8,  9,  10,  11,
-                                                              24, 25, 26,  27,
-                                                              12, 13, 14,  15,
-                                                              28, 29, 30,  31 };
+        const static Packet16uc p16uc_SETCOMPLEX32_SECOND = { 8,  9,  10, 11,
+                                                              24, 25, 26, 27,
+                                                              12, 13, 14, 15,
+                                                              28, 29, 30, 31 };
 //[a,b],[ai,bi] = [a,ai] - This is equivalent to p16uc_GETREAL64
         const static Packet16uc p16uc_SETCOMPLEX64_FIRST = { 0,  1,  2,  3,  4,  5,  6,  7,
                                                              16, 17, 18, 19, 20, 21, 22, 23 };
 
 //[a,b],[ai,bi] = [b,bi] - This is equivalent to p16uc_GETIMAG64
-        const static Packet16uc p16uc_SETCOMPLEX64_SECOND = { 8,  9,  10,  11, 12, 13, 14, 15,
-                                                              24, 25, 26,  27, 28, 29, 30, 31 };
+        const static Packet16uc p16uc_SETCOMPLEX64_SECOND = { 8,  9,  10, 11, 12, 13, 14, 15,
+                                                              24, 25, 26, 27, 28, 29, 30, 31 };
 
 
 // Grab two decouples real/imaginary PacketBlocks and return two coupled (real/imaginary pairs) PacketBlocks.

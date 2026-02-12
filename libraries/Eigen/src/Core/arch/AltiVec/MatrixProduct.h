@@ -76,10 +76,10 @@ namespace Eigen {
 // to be faster than Eigen's usual approach of having real/imaginary pairs on a single vector. This constants then
 // are responsible to extract from convert between Eigen's and MatrixProduct approach.
 
-        const static Packet16uc p16uc_GETREAL32 = { 0,  1,  2,   3,
-                                                    8,  9,  10,  11,
-                                                    16, 17, 18,  19,
-                                                    24, 25, 26,  27 };
+        const static Packet16uc p16uc_GETREAL32 = { 0,  1,  2,  3,
+                                                    8,  9,  10, 11,
+                                                    16, 17, 18, 19,
+                                                    24, 25, 26, 27 };
 
         const static Packet16uc p16uc_GETIMAG32 = { 4,  5,  6,  7,
                                                     12, 13, 14, 15,
@@ -89,8 +89,8 @@ namespace Eigen {
                                                     16, 17, 18, 19, 20, 21, 22, 23 };
 
 //[a,ai],[b,bi] = [ai,bi]
-        const static Packet16uc p16uc_GETIMAG64 = { 8,  9,  10,  11,  12,  13,  14,  15,
-                                                    24, 25, 26,  27,  28,  29,  30,  31 };
+        const static Packet16uc p16uc_GETIMAG64 = { 8,  9,  10, 11, 12, 13, 14, 15,
+                                                    24, 25, 26, 27, 28, 29, 30, 31 };
 
 /*********************************************
 * Single precision real and complex packing *
@@ -2229,13 +2229,14 @@ namespace Eigen {
                 }
 #undef MAX_COMPLEX_UNROLL
 
-                if (remaining_rows > 0)
+                if (remaining_rows > 0) {
                     gemm_complex_extra_row<Scalar, Packet, Packetc, DataMapper, Index, accRows, accCols, ConjugateLhs, ConjugateRhs, LhsIsReal, RhsIsReal>(res, lhs_base, rhs_base,
                                                                                                                                                            depth, strideA, offsetA,
                                                                                                                                                            strideB, row, col, rows,
                                                                                                                                                            cols, remaining_rows,
                                                                                                                                                            pAlphaReal, pAlphaImag,
                                                                                                                                                            pMask);
+                }
             }
 
             if (remaining_cols > 0) {
@@ -2250,7 +2251,7 @@ namespace Eigen {
                                                                                                                                                      rows, col, remaining_cols,
                                                                                                                                                      pAlphaReal, pAlphaImag);
 
-                    if (remaining_rows > 0)
+                    if (remaining_rows > 0) {
                         gemm_complex_extra_col<Scalar, Packet, Packetc, DataMapper, Index, accRows, accCols, ConjugateLhs, ConjugateRhs, LhsIsReal, RhsIsReal>(res, lhs_base,
                                                                                                                                                                rhs_base, depth,
                                                                                                                                                                strideA, offsetA,
@@ -2259,6 +2260,7 @@ namespace Eigen {
                                                                                                                                                                remaining_cols,
                                                                                                                                                                pAlphaReal,
                                                                                                                                                                pAlphaImag);
+                    }
                     rhs_base++;
                 }
             }

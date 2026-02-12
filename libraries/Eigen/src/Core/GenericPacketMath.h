@@ -548,7 +548,7 @@ namespace Eigen {
         }
 
 /** \internal \returns the min of \a a and \a b  (coeff-wise).
- *  NaNPropagation determines the NaN propagation semantics. */
+*  NaNPropagation determines the NaN propagation semantics. */
         template <int NaNPropagation, typename Packet>
         EIGEN_DEVICE_FUNC inline Packet pmin(const Packet& a, const Packet& b) {
             return pminmax_impl<NaNPropagation>::run(a, b, EIGEN_BINARY_OP_NAN_PROPAGATION(Packet, (pmin<Packet>)));
@@ -562,7 +562,7 @@ namespace Eigen {
         }
 
 /** \internal \returns the max of \a a and \a b  (coeff-wise).
- *  NaNPropagation determines the NaN propagation semantics. */
+*  NaNPropagation determines the NaN propagation semantics. */
         template <int NaNPropagation, typename Packet>
         EIGEN_DEVICE_FUNC inline Packet pmax(const Packet& a, const Packet& b) {
             return pminmax_impl<NaNPropagation>::run(a, b, EIGEN_BINARY_OP_NAN_PROPAGATION(Packet, (pmax<Packet>)));

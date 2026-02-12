@@ -2171,20 +2171,20 @@ namespace Eigen {
         }
 
         template<> EIGEN_STRONG_INLINE Packet16c pblend(const Selector<16>& ifPacket, const Packet16c& thenPacket, const Packet16c& elsePacket) {
-            Packet16uc select = { ifPacket.select[0],  ifPacket.select[1],  ifPacket.select[2],   ifPacket.select[3],
-                                  ifPacket.select[4],  ifPacket.select[5],  ifPacket.select[6],   ifPacket.select[7],
-                                  ifPacket.select[8],  ifPacket.select[9],  ifPacket.select[10],  ifPacket.select[11],
-                                  ifPacket.select[12], ifPacket.select[13], ifPacket.select[14],  ifPacket.select[15] };
+            Packet16uc select = { ifPacket.select[0],  ifPacket.select[1],  ifPacket.select[2],  ifPacket.select[3],
+                                  ifPacket.select[4],  ifPacket.select[5],  ifPacket.select[6],  ifPacket.select[7],
+                                  ifPacket.select[8],  ifPacket.select[9],  ifPacket.select[10], ifPacket.select[11],
+                                  ifPacket.select[12], ifPacket.select[13], ifPacket.select[14], ifPacket.select[15] };
 
             Packet16uc mask = reinterpret_cast<Packet16uc>(vec_cmpeq(reinterpret_cast<Packet16uc>(select), p16uc_ONE));
             return vec_sel(elsePacket, thenPacket, mask);
         }
 
         template<> EIGEN_STRONG_INLINE Packet16uc pblend(const Selector<16>& ifPacket, const Packet16uc& thenPacket, const Packet16uc& elsePacket) {
-            Packet16uc select = { ifPacket.select[0],  ifPacket.select[1],  ifPacket.select[2],   ifPacket.select[3],
-                                  ifPacket.select[4],  ifPacket.select[5],  ifPacket.select[6],   ifPacket.select[7],
-                                  ifPacket.select[8],  ifPacket.select[9],  ifPacket.select[10],  ifPacket.select[11],
-                                  ifPacket.select[12], ifPacket.select[13], ifPacket.select[14],  ifPacket.select[15] };
+            Packet16uc select = { ifPacket.select[0],  ifPacket.select[1],  ifPacket.select[2],  ifPacket.select[3],
+                                  ifPacket.select[4],  ifPacket.select[5],  ifPacket.select[6],  ifPacket.select[7],
+                                  ifPacket.select[8],  ifPacket.select[9],  ifPacket.select[10], ifPacket.select[11],
+                                  ifPacket.select[12], ifPacket.select[13], ifPacket.select[14], ifPacket.select[15] };
 
             Packet16uc mask = reinterpret_cast<Packet16uc>(vec_cmpeq(reinterpret_cast<Packet16uc>(select), p16uc_ONE));
             return vec_sel(elsePacket, thenPacket, mask);

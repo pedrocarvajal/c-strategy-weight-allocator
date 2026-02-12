@@ -540,7 +540,6 @@ namespace Eigen {
             // Combine the two permutations : postorder the permutation for future use
             if (m_perm_c.size())
                 m_perm_c = post_perm * m_perm_c;
-
         } // end postordering
 
         m_analysisIsOk = true;

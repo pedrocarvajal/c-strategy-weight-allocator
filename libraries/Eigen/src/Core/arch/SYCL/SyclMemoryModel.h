@@ -597,7 +597,7 @@ namespace Eigen {
                 // THIS IS FOR NULL COMPARISON ONLY
                 EIGEN_DEVICE_FUNC EIGEN_STRONG_INLINE friend bool operator==(
                     const RangeAccess &lhs, std::nullptr_t) {
-                    return (lhs.virtual_ptr_ == -1);
+                    return lhs.virtual_ptr_ == -1;
                 }
                 EIGEN_DEVICE_FUNC EIGEN_STRONG_INLINE friend bool operator!=(
                     const RangeAccess &lhs, std::nullptr_t i) {
@@ -607,7 +607,7 @@ namespace Eigen {
                 // THIS IS FOR NULL COMPARISON ONLY
                 EIGEN_DEVICE_FUNC EIGEN_STRONG_INLINE friend bool operator==(
                     std::nullptr_t, const RangeAccess &rhs) {
-                    return (rhs.virtual_ptr_ == -1);
+                    return rhs.virtual_ptr_ == -1;
                 }
                 EIGEN_DEVICE_FUNC EIGEN_STRONG_INLINE friend bool operator!=(
                     std::nullptr_t i, const RangeAccess &rhs) {
